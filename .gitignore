@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.vscode/
+cedict_ts.u8
+dicionario.py

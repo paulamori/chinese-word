@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Ma+Shan+Zheng&display=swap');
+body{
+    background-color: #fccbcb;
+    display: flex;
+    justify-content: center;
+    
+}
+
+header{
+    background-color: #4f7969;
+    text-align: center;
+    margin-top: 100px;
+    color:#dee3e2;
+}
+#palavra{
+    font-size: 100px;
+    text-align: center;
+    color: #4f7969;
+    margin-bottom: 10px;
+    font-family: "LXGW WenKai TC","Noto Serif SC", serif;
+}
+.container {
+    display: flex;
+    gap: 20px; 
+}
+
+p{
+    margin-bottom: 5px;
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+#pinyin{
+    font-weight: normal;
+}
+#definicao{
+    font-weight: normal;
+}

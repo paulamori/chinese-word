@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarim Word of the day</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <header>
+        <h1>Word of the day</h1>
+        </header>
+        <section>
+        <h1 id="palavra"></h1>
+        </section>
+        <section class="container">
+        <p>Pinyin:</p>
+        <p id = "pinyin"></p>
+        </section>
+        <section class="container">
+        <p>Meaning:</p>
+        <p id="definicao"></p>
+        </section>
+    </div>
+
+    <script>
+        fetch('http://127.0.0.1:8000/api/palavra-dia')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('#palavra').innerText = data.simplificado;
+                document.getElementById('pinyin').innerText = data.pinyin;
+                document.getElementById('definicao').innerText = data.definicao;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar palavra:', error);
+            });
+
+    </script>
+</body>
+</html>
