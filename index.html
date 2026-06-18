@@ -25,7 +25,7 @@
     </div>
 
     <script>
-        fetch('http://127.0.0.1:8000/api/palavra-dia')
+        fetch('https://daily-chinese-word.onrender.com')
             .then(response => response.json())
             .then(data => {
                 document.querySelector('#palavra').innerText = data.simplificado;
