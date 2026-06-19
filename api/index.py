@@ -6,7 +6,8 @@ app= FastAPI()
 
 
 def buscar_palavra_do_dia():
-    conexao = sqlite3.connect('dicionario.db')
+    db_path = os.path.join(os.path.dirname(__file__), '../public', 'dicionario.db')
+    conexao = sqlite3.connect(db_path)
     conexao.row_factory = sqlite3.Row
     cursor = conexao.cursor()
     
