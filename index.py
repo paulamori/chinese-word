@@ -1,32 +1,29 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import sqlite3
 from datetime import datetime
 import os
 
-app= FastAPI()
 
+app= FastAPI()
+DB_PATH = 'dicionario.db'
+
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 def buscar_palavra_do_dia():
-    @app.get("/debug")
-    def debug():
-        db_path = os.path.join(
-            os.path.dirname(__file__),
-            '../public',
-            'dicionario.db'
-        )
-
-        return {
-            "db_path": db_path,
-            "exists": os.path.exists(db_path)
-        }
-    conexao = sqlite3.connect(db_path)
+    
+    if not os.path.exists(DB_PATH):
+        return None
+        
+    conexao = sqlite3.connect(DB_PATH)
     conexao.row_factory = sqlite3.Row
     cursor = conexao.cursor()
     
     cursor.execute("SELECT * FROM palavras WHERE frequencia > 500 ORDER BY frequencia DESC")
     selecao = cursor.fetchall()
     
-    if not selecao:
+    if not selecao: 
         return None
     
     diaAno = datetime.now().timetuple().tm_yday
@@ -50,3 +47,7 @@ def get_palavra():
         "definicao": palavra['definicao'],
         "frequencia": palavra ['frequencia']
     }
+    
+@app.get("/")
+async def read_index():
+    return FileResponse('index.html')
