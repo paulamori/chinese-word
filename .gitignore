@@ -3,3 +3,5 @@ __pycache__/
 .vscode/
 cedict_ts.u8
 dicionario.py
+SUBTLEX-CH-WF
+venv/

@@ -1,29 +1,25 @@
 from fastapi import FastAPI
 import sqlite3
 from datetime import datetime
-from fastapi.middleware.cors import CORSMiddleware
 
 app= FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Permite pedidos de qualquer origem
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 def buscar_palavra_do_dia():
     conexao = sqlite3.connect('dicionario.db')
     conexao.row_factory = sqlite3.Row
     cursor = conexao.cursor()
-    cursor.execute("SELECT COUNT (*) FROM palavras")
-    total = cursor.fetchone()[0]
+    
+    cursor.execute("SELECT * FROM palavras WHERE frequencia > 500 ORDER BY frequencia DESC")
+    selecao = cursor.fetchall()
+    
+    if not selecao:
+        return None
     
     diaAno = datetime.now().timetuple().tm_yday
-    indice=diaAno % total
+    indice=diaAno % len(selecao)
     
-    cursor.execute("SELECT * FROM palavras LIMIT 1 OFFSET ?", (indice,))
-    resultado= cursor.fetchone()
+    resultado= selecao[indice]
     
     conexao.close()
     
@@ -38,5 +34,6 @@ def get_palavra():
         "tradicional": palavra['tradicional'],
         "simplificado": palavra['simplificado'],
         "pinyin": palavra['pinyin'],
-        "definicao": palavra['definicao']
+        "definicao": palavra['definicao'],
+        "frequencia": palavra ['frequencia']
     }
