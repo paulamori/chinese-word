@@ -9,7 +9,7 @@ import os
 app= FastAPI()
 DB_PATH = 'dicionario.db'
 
-app.mount("/static", StaticFiles(directory="."), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 def buscar_palavra_do_dia():
     
@@ -50,4 +50,4 @@ def get_palavra():
     
 @app.get("/")
 async def read_index():
-    return FileResponse('index.html')
+    return FileResponse('static/index.html')
