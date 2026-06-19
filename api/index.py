@@ -27,7 +27,7 @@ def buscar_palavra_do_dia():
     
     return resultado
 
-@app.get("/api/palavra-dia")
+@app.get("/palavra-dia")
 def get_palavra():
     palavra = buscar_palavra_do_dia()
     if not palavra:
